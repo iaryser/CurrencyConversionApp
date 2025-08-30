@@ -12,12 +12,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 
-public class SuppportedCurrenciesStorage {
+public class SupportedCurrenciesStorage {
     private HashMap<String, String> currencyMap = new HashMap<>();
-    public static Logger LOG = LoggerFactory.getLogger(SuppportedCurrenciesStorage.class);
+    public static Logger LOG = LoggerFactory.getLogger(SupportedCurrenciesStorage.class);
 
-    public SuppportedCurrenciesStorage() {
-        this.fillMapWithSupportedCurrencies();
+    public SupportedCurrenciesStorage() {
+        this.fillMapWithSupportedCurrencies(this.requestListOfAvailableCurrencies());
+    }
+
+    //This constructor will only be used in Unit tests
+    public SupportedCurrenciesStorage(String mockJson) {
+        this.fillMapWithSupportedCurrencies(mockJson);
     }
 
     private String requestListOfAvailableCurrencies() {
@@ -41,8 +46,11 @@ public class SuppportedCurrenciesStorage {
         return "";
     }
 
-    private void fillMapWithSupportedCurrencies() {
-        String json = requestListOfAvailableCurrencies();
+    private void fillMapWithSupportedCurrencies(String json) {
+        if(json == null) {
+            throw new IllegalArgumentException("Json is null!");
+        }
+
         if(json.isEmpty()) {
             LOG.error("No currencies retrieved!");
             return;
@@ -55,8 +63,6 @@ public class SuppportedCurrenciesStorage {
         } else {
             LOG.error("Currency API returned no Data or failed");
         }
-
-
     }
 
     public HashMap<String, String> getCurrencyMap() {

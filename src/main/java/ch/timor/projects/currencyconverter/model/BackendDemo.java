@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class BackendDemo {
     public final static Logger LOG = LoggerFactory.getLogger(BackendDemo.class);
     public static void main(String[] args) throws InterruptedException {
-        SuppportedCurrenciesStorage currenciesStorage = new SuppportedCurrenciesStorage();
+        SupportedCurrenciesStorage currenciesStorage = new SupportedCurrenciesStorage();
         CurrencyConversionClient conversionClient = new CurrencyConversionClient();
         HashMap<String, String> currencyMap = currenciesStorage.getCurrencyMap();
         System.out.println("=============================================================");
@@ -88,8 +88,8 @@ public class BackendDemo {
                     }
                 }
                 //!---FINISHED COLLECTING ALL VALID INPUTS---!
-
-                ConversionResponse response = conversionClient.makeConversionRequest(from, to, intAmount);
+                String res = conversionClient.makeConversionRequest(from, to, intAmount);
+                ConversionResponse response = conversionClient.parseResponse(res);
                 System.out.println("Processing inputs....");
                 Thread.sleep(1000);
                 System.out.println("Checking up to date conversion rates...");

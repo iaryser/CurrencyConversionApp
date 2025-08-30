@@ -10,6 +10,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ *
+ * The single purpose of this class is to test-call the API service and play around with different requests!
+ * I also had to figure out how all the Http Objects and their methods work, same with Gson
+ */
 public class APICallTest {
     public static void main(String[] args) throws Exception {
         //I'll just perfom a simple API call in order to see which endpoints I want to use for this project
@@ -44,8 +49,5 @@ public class APICallTest {
                     + " results in a total of: " + Math.round(Double.valueOf(responseObject.getResult()))
                     + " " + responseObject.getQuery().getTo());
         }
-
-
-
     }
 }
